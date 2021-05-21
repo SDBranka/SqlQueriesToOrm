@@ -1,0 +1,35 @@
+
+1. from app1.models import Wizard
+#INSERT INTO hogwarts.wizard (name, house, pet, year) VALUES ('Harry Potter', 'Gryffindor', 'Hedwig', '5');
+In [6]: Wizard.objects.create(name = "Harry Potter", house = "Gryffindor", pet = "Hedwig", year = "5")
+Out[6]: <Wizard: Wizard object (1)>
+#INSERT INTO hogwarts.wizard (name, house, pet, year) VALUES ('Hermione Granger', 'Gryffindor', 'Crookshanks', '5');
+In [7]: Wizard.objects.create(name = "Hermione Granger", house = "Gryffindor", pet = "Crookshanks", year = "5")
+Out[7]: <Wizard: Wizard object (2)>
+#SELECT * FROM hogwarts.wizard WHERE id = 1;
+In [8]: Wizard.objects.get(id=1).__dict__
+Out[8]:
+{'_state': <django.db.models.base.ModelState at 0x189a3e54dc0>,
+ 'id': 1,
+ 'name': 'Harry Potter',
+ 'house': 'Gryffindor',
+ 'pet': 'Hedwig',
+ 'year': 5}
+#SELECT * FROM hogwarts.wizard WHERE house = 'Gryffindor';
+In [9]: Wizard.objects.filter(house = "Gryffindor")
+Out[9]: <QuerySet [<Wizard: Wizard object (1)>, <Wizard: Wizard object (2)>]>
+#UPDATE hogwarts.wizard SET year = '6' WHERE id = 1;
+In [10]: wizard_to_update = Wizard.objects.get(id=1)
+
+In [11]: wizard_to_update.year = 6
+
+In [12]: wizard_to_update.save()
+
+In [13]: Wizard.objects.get(id=1).__dict__
+Out[13]:
+{'_state': <django.db.models.base.ModelState at 0x189a40b2940>,
+ 'id': 1,
+ 'name': 'Harry Potter',
+ 'house': 'Gryffindor',
+ 'pet': 'Hedwig',
+ 'year': 6}
